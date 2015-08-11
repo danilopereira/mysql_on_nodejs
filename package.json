@@ -1,0 +1,17 @@
+{
+  "name": "mysql-node",
+  "version": "0.0.1",
+  "description": "tech talk de nodejs com mysql",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "tech",
+    "talk",
+    "nodejs",
+    "mysql"
+  ],
+  "author": "danilo.pereira",
+  "license": "ISC"
+}
