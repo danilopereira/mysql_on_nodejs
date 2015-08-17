@@ -15,7 +15,6 @@ con.connect(function(err){
 		return;
 	}
 
-	exports.con;
 	console.log('connection established')
 });
 
