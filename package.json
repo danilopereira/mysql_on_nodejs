@@ -13,5 +13,11 @@
     "mysql"
   ],
   "author": "danilo.pereira",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.14.2",
+    "express": "^4.13.3",
+    "mysql": "^2.10.0",
+    "node-mysql": "^0.4.2"
+  }
 }

@@ -5,8 +5,8 @@ var mysql = require('mysql');
 var con = mysql.createConnection({
 	host : "localhost",
 	user : "root",
-	password: "",
-	database: "cep"
+	password: "ironman10",
+	database: "mysqlonnode"
 });
 
 con.connect(function(err){
@@ -23,17 +23,34 @@ app.get("/", function(req,res){
 	res.end("Server ON");
 });
 
-app.get("/cep/:estado/:cep", function(req, res){
-	var estado = req.param('estado');
-	var cep = req.param('cep').toString();
-	var cepEdit = cep.substring(0, 5) + "-" + cep.substring(5, 8);
-	var query = 'SELECT * FROM '+estado+ ' where cep = \''+cepEdit + '\'';
-	con.query(query, function(err, rows){
+app.get("/estado/:cep", function(req, res){
+	var cep = req.param('cep').toString().substring(0,5);
+	var query = "SELECT UF FROM uf WHERE '" + cep + "' BETWEEN Cep1 AND Cep2";
+	con.query(query, function(err, row){
 		if(err) throw err;
 
-		res.json(rows);
+		res.json(row[0]['UF']);
 
-		console.log(rows);
+
+		console.log(row[0]['UF']);
+	});
+});
+
+app.get("/cep/:cep", function(req, res){
+	var cep = req.param('cep').toString();
+	var cepEdit = cep.substring(0, 5) + "-" + cep.substring(5, 8);
+
+	var cepEstado = cep.substring(0,5);
+	var queryEstado  = "SELECT UF FROM uf WHERE '" + cepEstado + "' BETWEEN Cep1 AND Cep2";
+	con.query(queryEstado, function(err, row){
+		if(err) throw err;
+		var query = 'SELECT * FROM '+row[0]['UF'].toLowerCase() + ' where cep = \''+cepEdit + '\'';
+
+		con.query(query, function(err, rows){
+			if(err) throw err;
+			res.json(rows);
+			console.log(rows);
+		});
 	});
 });
 
